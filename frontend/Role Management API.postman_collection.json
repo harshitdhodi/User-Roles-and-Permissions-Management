@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "6f69d816-138f-4c5c-a885-fb7e107f5638",
+		"name": "Permissions and Roles API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34835534",
+		"_collection_link": "https://red-moon-192445.postman.co/workspace/shantipatra~ef04487b-6dc9-40f5-b6eb-67c8236a1733/collection/34835534-6f69d816-138f-4c5c-a885-fb7e107f5638?action=share&source=collection_link&creator=34835534"
+	},
+	"item": [
+		{
+			"name": "Permissions",
+			"item": [
+				{
+					"name": "Create Permission",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dashboard\",\n    \"description\": \"Manage all information related to customer leads, including tracking, assigning, and updating lead details.\"\n}\n    "
+						},
+						"url": {
+							"raw": "{{base_url}}/permissions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Permissions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/permissions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permission by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/permissions/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Permission",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Read Users Advanced\",\n    \"description\": \"Updated ability to view detailed user information\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/permissions/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Permission",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/permissions/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role Permissions",
+			"item": [
+				{
+					"name": "Assign Permission to Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissionId\": 7\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/permissions/roles/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"permissions",
+								"roles",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Permission from Role",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/roles/1/permissions/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"roles",
+								"1",
+								"permissions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

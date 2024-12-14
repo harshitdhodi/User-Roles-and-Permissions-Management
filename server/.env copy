@@ -1,0 +1,7 @@
+username=sabecho_dev
+mysql=,yD}qp#$WOAG
+
+db=sabecho_shantipatra
+host=103.191.208.92
+
+DATABASE_URL="mysql://sabecho_dev:,yD}qp#$WOAG@103.191.208.92:3306/sabecho_shantipatra"

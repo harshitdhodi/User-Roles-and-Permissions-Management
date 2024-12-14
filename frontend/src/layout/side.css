@@ -1,0 +1,40 @@
+
+.ordered-list {
+  counter-reset: item;
+}
+
+.ordered-list-item {
+  counter-increment: item;
+  position: relative;
+}
+
+.ordered-list-item::before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  background-color: currentColor;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.ordered-list-item::after {
+  content: '';
+  position: absolute;
+  left: -13px;
+  top: -10px;
+  bottom: -10px;
+  width: 1px;
+  background-color: currentColor;
+  opacity: 0.2;
+}
+
+.ordered-list-item:first-child::after {
+  top: 50%;
+}
+
+.ordered-list-item:last-child::after {
+  bottom: 50%;
+}

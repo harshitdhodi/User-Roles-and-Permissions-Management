@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(50)
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users       User[]
+  permissions RolePermission[]
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  username    String   @unique @db.VarChar(50)
+  email       String   @unique @db.VarChar(100)
+  password    String   @db.VarChar(255)
+  firstName   String   @db.VarChar(50)
+  lastName    String   @db.VarChar(50)
+  isActive    Boolean  @default(true)
+  lastLogin   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  img         String?  @db.VarChar(255)
+  roleId      Int
+  role        Role     @relation(fields: [roleId], references: [id])
+  sessions    UserSession[]
+  resetTokens PasswordResetToken[]
+  activityLogs UserActivityLog[]
+  smtpDetails  SmtpDetails? @relation("UserToSmtpDetails")
+}
+
+model Permission {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(50)
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roles       RolePermission[]
+}
+
+model RolePermission {
+  roleId       Int
+  permissionId Int
+
+  role         Role       @relation(fields: [roleId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+model UserSession {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  sessionToken String  @unique @db.VarChar(255)
+  ipAddress   String?  @db.VarChar(45)
+  userAgent   String?  @db.Text
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model UserActivityLog {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  activityType String  @db.VarChar(50)
+  description String?  @db.Text
+  ipAddress   String?  @db.VarChar(45)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model PasswordResetToken {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  token       String   @unique @db.VarChar(255)
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model SmtpDetails {
+  id         Int        @id @default(autoincrement())
+  host       String
+  port       Int
+  username   String
+  password   String
+  encryption Encryption
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  userId     Int        @unique
+  user       User       @relation("UserToSmtpDetails", fields: [userId], references: [id])
+}
+
+enum Encryption {
+  TLS
+  SSL
+  NONE
+}
